@@ -101,13 +101,7 @@ def summarize_data(df):
     return summary
 
 def visualize_data(df, output_folder):
-    """
-    Generate relevant visualizations for meaningful data and save as PNG files.
-
-    Args:
-        df (DataFrame): Input pandas DataFrame.
-        output_folder (str): Folder to save the visualizations.
-    """
+    """Generate the most useful visualizations for meaningful data and save as PNG files."""
     os.makedirs(output_folder, exist_ok=True)
 
     visualizations = []
@@ -129,8 +123,8 @@ def visualize_data(df, output_folder):
         if 1 < df[col].nunique() <= 20:  # Avoid constant or high cardinality data
             visualizations.append(("categorical", col))
 
-    # Select top 5 visualizations based on relevance
-    selected_visualizations = visualizations[:5]
+    # Select top 3 visualizations based on relevance
+    selected_visualizations = visualizations[:3]
 
     # Create the selected visualizations
     for v_type, col in selected_visualizations:
@@ -146,13 +140,6 @@ def visualize_data(df, output_folder):
             plt.savefig(f"{output_folder}/{col}_histogram.png")
             plt.close()
 
-            plt.figure()
-            df.boxplot(column=col, vert=True)
-            plt.title(f"Boxplot of {col}")
-            plt.xlabel(f"{col} (Values)")
-            plt.savefig(f"{output_folder}/{col}_boxplot.png")
-            plt.close()
-
         elif v_type == "categorical":
             plt.figure()
             df[col].value_counts().plot(kind='bar', color='skyblue', edgecolor='black')
@@ -164,7 +151,8 @@ def visualize_data(df, output_folder):
             plt.savefig(f"{output_folder}/{col}_barchart.png")
             plt.close()
 
-    print(f"Up to 5 relevant visualizations saved in folder: {output_folder}")
+    print(f"Up to 3 relevant visualizations saved in folder: {output_folder}")
+
     print("Creating README.md file")
 
 def prompt_llm(summary):
