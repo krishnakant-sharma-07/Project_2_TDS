@@ -14,6 +14,7 @@ AIPROXY_TOKEN = os.getenv('AIPROXY_TOKEN')
 if not AIPROXY_TOKEN:
     print("Error: AIPROXY_TOKEN is not set in the environment.")
     sys.exit(1)
+# AIPROXY TOKEN is stored in the .env file
 
 # API endpoint and headers
 url = "http://aiproxy.sanand.workers.dev/openai/v1/chat/completions"
